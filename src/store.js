@@ -1,8 +1,9 @@
 const configureStore = require('@reduxjs/toolkit').configureStore;
-const { getDefaultMiddleware } = require('@reduxjs/toolkit');
+const { getDefaultMiddleware, createAsyncThunk, isAsyncThunkAction } = require('@reduxjs/toolkit');
 //require reducers
 const cakeReducer = require('../features/cake/cakeSlice');
 const iceReducer = require('../features/ice/iceSlice');
+const usersReducer = require('../features/users/usersSlice');
 //logger
 const reduxLogger = require('redux-logger');
 const logger = reduxLogger.createLogger();
@@ -11,9 +12,10 @@ const logger = reduxLogger.createLogger();
 const store = configureStore({
     reducer: {
         cake: cakeReducer,
-        ice: iceReducer
+        ice: iceReducer,
+        users: usersReducer
     },
-    middleware: [].concat(logger)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 });
 
 
